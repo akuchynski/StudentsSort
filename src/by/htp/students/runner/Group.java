@@ -81,7 +81,7 @@ public class Group {
 	public void averageAge() {
 		int tmp = 0;
 		for (int i = 0; i < getStudents().length; i++) {
-			tmp = tmp + this.getStudents()[i].getYear();
+			tmp = tmp + this.getStudents()[i].getAge();
 		}
 
 		System.out.println("Average age " + tmp / getStudents().length);
@@ -125,6 +125,8 @@ public class Group {
 				+ " students" + "\n");
 	}
 
+	// ----- Bubble sort -----
+
 	public void bubbleSort() {
 
 		long timestart = System.nanoTime();
@@ -144,32 +146,29 @@ public class Group {
 		}
 
 		long timeend = System.nanoTime();
-		System.out.println("Sort time: " + (double) (timeend - timestart) / 1000 + " ìicrosec.");
+		System.out.println("\n" + "Sort time: " + (double) (timeend - timestart) / 1000 + " ìicrosec.");
 
 	}
+
+	// ----- Select sort -----
 
 	public void selectSort() {
 
 		long timestart = System.nanoTime();
-		int[] arr = new int[getStudents().length];
-		int min = 0;
+		Student tmp = null;
 		int indexMin = 0;
 
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = getStudents()[i].getYear();
-		}
-
-		for (int i = 0; i < arr.length; i++) {
-			min = arr[i];
-			for (int n = i; n < arr.length - 1; n++) {
-				if (arr[n + 1] < min) {
-					min = arr[n + 1];
+		for (int i = 0; i < getStudents().length; i++) {
+			tmp = getStudents()[i];
+			for (int n = i; n < getStudents().length - 1; n++) {
+				if (getStudents()[i + 1].getAge() < tmp.getAge()) {
+					tmp = getStudents()[i + 1];
 					indexMin = n + 1;
 				}
 			}
 			if (indexMin != 0) {
-				arr[indexMin] = arr[i];
-				arr[i] = min;
+				getStudents()[indexMin] = getStudents()[i];
+				getStudents()[i] = tmp;
 				indexMin = 0;
 			}
 		}
@@ -180,43 +179,44 @@ public class Group {
 		}
 
 		long timeend = System.nanoTime();
-		System.out.println("Sort time: " + (double) (timeend - timestart) / 1000 + " ìicrosec.");
+		System.out.println("\n" + "Sort time: " + (double) (timeend - timestart) / 1000 + " ìicrosec.");
 
 	}
+
+	// ----- Insert sort -----
 
 	public void insertSort() {
 
 		long timestart = System.nanoTime();
-		int[] arr = new int[getStudents().length];
-		int num = 0;
+		Student tmp = null;
 		int indexNum = 0;
 
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = getStudents()[i].getYear();
-		}
-
-		for (int i = 1; i < arr.length; i++) {
-			num = arr[i];
+		for (int i = 1; i < getStudents().length; i++) {
+			tmp = getStudents()[i];
 			for (int n = i; n > 0; n--) {
-				if (arr[n - 1] > num) {
+				if (getStudents()[n - 1].getAge() > tmp.getAge()) {
 					indexNum = n;
 				}
 			}
-
-			for (int m = i; m >= indexNum; m--) {
-				arr[m - 1] = arr[m];
+			
+			if (indexNum != 0) {
+				for (int m = i; m > indexNum - 1; m--) {
+					getStudents()[m] = getStudents()[m - 1];
+				}
+				getStudents()[indexNum - 1] = tmp;
 			}
-			arr[indexNum] = num;
+			indexNum = 0;
 
 		}
 
 		System.out.println("============ Insert sort group ============" + "\n");
 		for (int i = 0; i < getStudents().length; i++) {
-			System.out.println(getStudents()[i].getName() + " " + getStudents()[i].getAge());
+			System.out.println(getStudents()[i].getName() + " " +
+			getStudents()[i].getAge());
 		}
 
 		long timeend = System.nanoTime();
-		System.out.println("Sort time: " + (double) (timeend - timestart) / 1000 + " ìicrosec.");
+		System.out.println("\n" + "Sort time: " + (double) (timeend - timestart) / 1000 + " ìicrosec.");
 
 	}
 
