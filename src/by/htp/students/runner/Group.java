@@ -31,6 +31,12 @@ public class Group {
 	}
 
 	public void addStudent(Student student) {
+		
+		if (this.getStudentCounter() >= 15) {
+			System.out.println("Group formed. Students count: " + this.getStudentCounter());
+			return;
+		}	
+		
 
 		if (students != null) {
 			if (studentCounter < this.students.length) {
@@ -59,21 +65,22 @@ public class Group {
 			studentCounter++;
 
 		}
-
+		
 		if (this.getStudentCounter() >= 5 && this.getStudentCounter() <= 15) {
 			this.setGroupComplete(true);
 		}
 	}
 
 	public void groupStatus() {
-		System.out.println("============ Group ============" + "\n");
+		System.out.println("============ Group info ============" + "\n");
 		for (int i = 0; i < getStudents().length; i++) {
-			System.out.println(getStudents()[i].getName() + " " + getStudents()[i].getAge());
+			System.out.println(
+					getStudents()[i].getName() + " " + getStudents()[i].getAge() + " " + getStudents()[i].getYear());
 		}
 		if (this.isGroupComplete() == true) {
-			System.out.println("Group complete" + "\n");
+			System.out.println("\n" + "Group complete" + "\n");
 		} else {
-			System.out.println("Group not complete" + "\n");
+			System.out.println("\n" + "Group not complete" + "\n");
 		}
 
 	}
@@ -125,6 +132,25 @@ public class Group {
 				+ " students" + "\n");
 	}
 
+	// ----- Sort ------------
+
+	public void sortOption(int value) {
+		switch (value) {
+		case 1:
+			bubbleSort();
+			break;
+		case 2:
+			selectSort();
+			break;
+		case 3:
+			insertSort();
+			break;
+		case 4:
+			quickSort();
+			break;
+		}
+	}
+
 	// ----- Bubble sort -----
 
 	public void bubbleSort() {
@@ -142,7 +168,8 @@ public class Group {
 
 		System.out.println("============ Bubble sort group ============" + "\n");
 		for (int i = 0; i < getStudents().length; i++) {
-			System.out.println(getStudents()[i].getName() + " " + getStudents()[i].getAge());
+			System.out.println(
+					getStudents()[i].getName() + " " + getStudents()[i].getAge() + " " + getStudents()[i].getYear());
 		}
 
 		long timeend = System.nanoTime();
@@ -175,7 +202,8 @@ public class Group {
 
 		System.out.println("============ Select sort group ============" + "\n");
 		for (int i = 0; i < getStudents().length; i++) {
-			System.out.println(getStudents()[i].getName() + " " + getStudents()[i].getAge());
+			System.out.println(
+					getStudents()[i].getName() + " " + getStudents()[i].getAge() + " " + getStudents()[i].getYear());
 		}
 
 		long timeend = System.nanoTime();
@@ -198,7 +226,7 @@ public class Group {
 					indexNum = n;
 				}
 			}
-			
+
 			if (indexNum != 0) {
 				for (int m = i; m > indexNum - 1; m--) {
 					getStudents()[m] = getStudents()[m - 1];
@@ -211,8 +239,8 @@ public class Group {
 
 		System.out.println("============ Insert sort group ============" + "\n");
 		for (int i = 0; i < getStudents().length; i++) {
-			System.out.println(getStudents()[i].getName() + " " +
-			getStudents()[i].getAge());
+			System.out.println(
+					getStudents()[i].getName() + " " + getStudents()[i].getAge() + " " + getStudents()[i].getYear());
 		}
 
 		long timeend = System.nanoTime();
@@ -220,4 +248,51 @@ public class Group {
 
 	}
 
+	// ----- Quick sort -----
+
+	public void quickSort() {
+
+		long timestart = System.nanoTime();
+
+		int firstIndex = 0;
+		int lastIndex = getStudents().length - 1;
+
+		sortArr(students, firstIndex, lastIndex);
+
+		System.out.println("============ Quick sort group ============" + "\n");
+
+		for (int i = 0; i < getStudents().length; i++) {
+			System.out.println(
+					getStudents()[i].getName() + " " + getStudents()[i].getAge() + " " + getStudents()[i].getYear());
+		}
+
+		long timeend = System.nanoTime();
+		System.out.println("\n" + "Sort time: " + (double) (timeend - timestart) / 1000 + " ìicrosec.");
+
+	}
+
+	private void sortArr(Student[] students, int firstIndex, int lastIndex) {
+		if (lastIndex <= firstIndex) {
+			return;
+		}
+
+		Student currentElem = students[firstIndex];
+		Student pivot = students[lastIndex];
+		int wall = firstIndex;
+
+		for (int n = wall; n < lastIndex; n++) {
+			currentElem = students[n];
+			if (currentElem.getAge() < pivot.getAge()) {
+				students[n] = students[wall];
+				students[wall] = currentElem;
+				wall++;
+			}
+		}
+		students[lastIndex] = students[wall];
+		students[wall] = pivot;
+
+		sortArr(students, firstIndex, wall - 1);
+		sortArr(students, wall + 1, lastIndex);
+
+	}
 }

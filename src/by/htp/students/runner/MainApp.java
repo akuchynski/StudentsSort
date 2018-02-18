@@ -1,15 +1,18 @@
 package by.htp.students.runner;
 
+import by.htp.students.input.ConsoleInput;
+
 public class MainApp {
 
 	public static void main(String[] args) {
 
-		Student student1 = new Student("Name1", 29, 2012);
-		Student student2 = new Student("Name2", 25, 2011);
-		Student student3 = new Student("Name3", 24, 2015);
-		Student student4 = new Student("Name4", 20, 2011);
-		Student student5 = new Student("Name5", 31, 2013);
-		Student student6 = new Student("Name6", 21, 2011);
+		Student student1 = new Student("Name1", 20, 2016);
+		Student student2 = new Student("Name2", 27, 2015);
+		Student student3 = new Student("Name3", 22, 2011);
+		Student student4 = new Student("Name4", 28, 2013);
+		Student student5 = new Student("Name5", 23, 2018);
+		Student student6 = new Student("Name6", 22, 2012);
+		Student student7 = new Student("Name7", 26, 2018);
 
 		Group grp = new Group();
 
@@ -19,21 +22,16 @@ public class MainApp {
 		grp.addStudent(student4);
 		grp.addStudent(student5);
 		grp.addStudent(student6);
+		grp.addStudent(student7);
 
-		
 		grp.groupStatus();
 
 		grp.averageAge();
-
 		grp.group2015();
-
 		grp.groupMaxYear();
 
-		//grp.bubbleSort();
-
-		//grp.selectSort();
-
-		grp.insertSort();
+		ConsoleInput input = new ConsoleInput();
+		grp.sortOption(input.readIntValue());
 
 	}
 
