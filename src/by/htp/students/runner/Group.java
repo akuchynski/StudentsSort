@@ -31,12 +31,11 @@ public class Group {
 	}
 
 	public void addStudent(Student student) {
-		
+
 		if (this.getStudentCounter() >= 15) {
 			System.out.println("Group formed. Students count: " + this.getStudentCounter());
 			return;
-		}	
-		
+		}
 
 		if (students != null) {
 			if (studentCounter < this.students.length) {
@@ -65,7 +64,7 @@ public class Group {
 			studentCounter++;
 
 		}
-		
+
 		if (this.getStudentCounter() >= 5 && this.getStudentCounter() <= 15) {
 			this.setGroupComplete(true);
 		}
@@ -158,12 +157,13 @@ public class Group {
 		long timestart = System.nanoTime();
 		Student tmp = null;
 		for (int i = 0; i < getStudents().length - 1; i++) {
-			tmp = students[i];
-			if (getStudents()[i].getAge() > getStudents()[i + 1].getAge()) {
-				students[i] = students[i + 1];
-				students[i + 1] = tmp;
+			for (int n = 0; n < getStudents().length - i - 1; n++) {
+				tmp = students[n];
+				if (getStudents()[n].getAge() > getStudents()[n + 1].getAge()) {
+					students[n] = students[n + 1];
+					students[n + 1] = tmp;
+				}
 			}
-
 		}
 
 		System.out.println("============ Bubble sort group ============" + "\n");
