@@ -32,41 +32,41 @@ public class Group {
 
 	public void addStudent(Student student) {
 
-		if (this.getStudentCounter() >= 15) {
-			System.out.println("Group formed. Students count: " + this.getStudentCounter());
+		if (getStudentCounter() >= 15) {
+			System.out.println("Group formed. Students count: " + getStudentCounter());
 			return;
 		}
 
-		if (students != null) {
-			if (studentCounter < this.students.length) {
+		if (getStudents() != null) {
+			if (getStudentCounter() < getStudents().length) {
 
-				this.students[studentCounter] = student;
+				getStudents()[studentCounter] = student;
 				studentCounter++;
 
 			} else {
 
-				Student[] students = new Student[this.students.length + 1];
+				Student[] students = new Student[getStudents().length + 1];
 
-				for (int i = 0; i < this.students.length; i++) {
-					students[i] = this.students[i];
+				for (int i = 0; i < getStudents().length; i++) {
+					students[i] = getStudents()[i];
 				}
 
-				this.students = students;
-				this.students[studentCounter] = student;
+				setStudents(students);
+				getStudents()[studentCounter] = student;
 				studentCounter++;
 
 			}
 
 		} else {
 
-			this.students = new Student[1];
-			this.students[studentCounter] = student;
+			setStudents(new Student[1]);
+			getStudents()[studentCounter] = student;
 			studentCounter++;
 
 		}
 
-		if (this.getStudentCounter() >= 5 && this.getStudentCounter() <= 15) {
-			this.setGroupComplete(true);
+		if (getStudentCounter() >= 5 && getStudentCounter() <= 15) {
+			setGroupComplete(true);
 		}
 	}
 
@@ -76,7 +76,7 @@ public class Group {
 			System.out.println(
 					getStudents()[i].getName() + " " + getStudents()[i].getAge() + " " + getStudents()[i].getYear());
 		}
-		if (this.isGroupComplete() == true) {
+		if (isGroupComplete() == true) {
 			System.out.println("\n" + "Group complete" + "\n");
 		} else {
 			System.out.println("\n" + "Group not complete" + "\n");
@@ -87,7 +87,7 @@ public class Group {
 	public void averageAge() {
 		int tmp = 0;
 		for (int i = 0; i < getStudents().length; i++) {
-			tmp = tmp + this.getStudents()[i].getAge();
+			tmp = tmp + getStudents()[i].getAge();
 		}
 
 		System.out.println("Average age " + tmp / getStudents().length);
@@ -97,7 +97,7 @@ public class Group {
 
 		int y = 0;
 		for (int i = 0; i < getStudents().length; i++) {
-			if (this.getStudents()[i].getYear() == 2015)
+			if (getStudents()[i].getYear() == 2015)
 				y++;
 		}
 		System.out.println("2015: " + y + " Students");
@@ -111,7 +111,7 @@ public class Group {
 		int maxIndex = 0;
 
 		for (int i = 0; i < arr.length; i++) {
-			arr[i] = this.getStudents()[i].getYear();
+			arr[i] = getStudents()[i].getYear();
 		}
 
 		for (int i = 0; i < arr.length; i++) {
@@ -127,7 +127,7 @@ public class Group {
 			countYearTmp = 1;
 		}
 
-		System.out.println("Max. student year - " + this.getStudents()[maxIndex].getYear() + " " + countYearMax
+		System.out.println("Max. student year - " + getStudents()[maxIndex].getYear() + " " + countYearMax
 				+ " students" + "\n");
 	}
 
@@ -182,20 +182,20 @@ public class Group {
 	public void selectSort() {
 
 		long timestart = System.nanoTime();
-		Student tmp = null;
+		Student min = null;
 		int indexMin = 0;
 
 		for (int i = 0; i < getStudents().length; i++) {
-			tmp = getStudents()[i];
+			min = getStudents()[i];
 			for (int n = i; n < getStudents().length - 1; n++) {
-				if (getStudents()[i + 1].getAge() < tmp.getAge()) {
-					tmp = getStudents()[i + 1];
+				if (getStudents()[n + 1].getAge() < min.getAge()) {
+					min = getStudents()[n + 1];
 					indexMin = n + 1;
 				}
 			}
 			if (indexMin != 0) {
 				getStudents()[indexMin] = getStudents()[i];
-				getStudents()[i] = tmp;
+				getStudents()[i] = min;
 				indexMin = 0;
 			}
 		}
@@ -257,7 +257,7 @@ public class Group {
 		int firstIndex = 0;
 		int lastIndex = getStudents().length - 1;
 
-		sortArr(students, firstIndex, lastIndex);
+		sortArr(getStudents(), firstIndex, lastIndex);
 
 		System.out.println("============ Quick sort group ============" + "\n");
 
